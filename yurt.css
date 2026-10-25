@@ -545,3 +545,4 @@ a.ach:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--acce
 .ach b { font-family: var(--dot); font-weight: 900; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; line-height: 1.2; }
 .ach small { font-size: 11.5px; color: var(--ink-2); line-height: 1.35; }
 @media (max-width: 560px) { .achievements { grid-template-columns: 1fr; } }
+.links .swatch { display: inline-block; width: 12px; height: 12px; margin-right: 8px; vertical-align: -1px; border: 1.5px solid var(--ink); border-radius: 3px; background: var(--sw); }
