@@ -479,6 +479,24 @@ function openWin(name) {
   w.addEventListener('pointerdown', () => { if (!w.classList.contains('focus')) focusWin(name); });
   $('[data-act="min"]', w).addEventListener('click', () => minimizeWin(name));
   $('[data-act="close"]', w).addEventListener('click', () => closeWin(name));
+
+  // about window: achievements reveal + offline (night) mode
+  const achBtn = $('[data-act="ach"]', w);
+  if (achBtn) achBtn.addEventListener('click', () => {
+    const list = $('.achievements', w);
+    list.hidden = !list.hidden;
+    achBtn.setAttribute('aria-expanded', String(!list.hidden));
+  });
+  const offBtn = $('[data-act="offline"]', w);
+  if (offBtn) {
+    const label = () => { offBtn.textContent = document.documentElement.dataset.mode === 'night' ? '☀ Online mode' : '☾ Offline mode'; };
+    label();
+    offBtn.addEventListener('click', () => {
+      const next = document.documentElement.dataset.mode === 'night' ? 'day' : 'night';
+      $('.mode-toggle button[data-mode="' + next + '"]').click();
+      label();
+    });
+  }
 }
 
 $('#insideSvg').addEventListener('click', (e) => {

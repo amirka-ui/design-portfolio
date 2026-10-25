@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Amira Sagitkhan</title>
-  <meta name="description" content="Amira Sagitkhan — designer & developer. Step inside the yurt to see the work.">
+  <meta name="description" content="Amira Sagitkhan — mechanical engineer. Step inside the yurt to see the work.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Doto:wght@700;800;900&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
@@ -250,7 +250,7 @@
   <div class="plate">
     <div class="id mono">Portfolio · v1.0 · [2026]</div>
     <h1>Amira<br>Sagitkhan</h1>
-    <p>Designer &amp; developer. [One line about what you make.] It's cold out here, come inside.</p>
+    <p>Mechanical engineer. Turning ideas into things that move, think, and work. It's cold out here, come inside.</p>
   </div>
   <div class="readout mono" aria-hidden="true">
     <span>Ext temp</span><b id="extTemp">−12°C</b>
@@ -726,40 +726,53 @@
   <div class="nowplaying"><span class="np-btn">▶</span><span class="np-track">now playing — [song on repeat]</span><span class="np-bars"><i></i><i></i><i></i><i></i><i></i></span></div>
 </template>
 
-<template id="tpl-about" data-title="USER.PROFILE" data-path="C:\YURT\USERS\AMIRA\" data-status="profile loaded · last seen just now">
+<template id="tpl-about" data-title="USER_PROFILE" data-path="C:\YURT\USERS\AMIRA\" data-status="amira.exe · still iterating...">
   <div class="idcard">
     <span class="ph photo" style="--c1:#c9d6f5;--c2:#4f7cf0" data-label="portrait"></span>
     <dl>
       <dt>Name</dt><dd>Amira Sagitkhan</dd>
-      <dt>Class</dt><dd>Designer / Developer</dd>
-      <dt>Base</dt><dd>[City]</dd>
-      <dt>Study</dt><dd>[School, Year]</dd>
-      <dt>Status</dt><dd class="acc">● [Open to internships]</dd>
+      <dt>Class</dt><dd>Mechanical Engineer</dd>
+      <dt>Origin</dt><dd>Kazakhstan</dd>
+      <dt>Base</dt><dd>Boston, MA</dd>
+      <dt>Study</dt><dd>BU · ME '28</dd>
+      <dt>Status</dt><dd class="acc">● Open to internships</dd>
     </dl>
     <span class="idstar">✦</span>
   </div>
-  <p class="lead big">[I design and build things that feel warm, even when they're made of pixels.]</p>
-  <p class="lead">[Short bio: what you study, what you focus on, the problems you love. A personal line about the yurt and what you do offline.]</p>
+  <p class="lead big">Turning ideas into things that move, think, and work.</p>
+  <p class="lead">I'm a Mechanical Engineering student at Boston University, concentrating in Robotics. I enjoy working at the intersection of mechanical design, programming, and automation, especially when it means turning an idea into something that actually works.</p>
+  <p class="lead">Currently, I'm exploring laboratory automation at the DAMP Lab and soft robotics at the MBL Lab. From building autonomous robots to developing tools for automated laboratories, I love learning through designing, building, testing, and improving.</p>
+  <p class="lead">Originally from Kazakhstan, I also enjoy finding ways to bring a little bit of my culture into what I create — including this digital yurt!</p>
   <div class="cols">
     <div>
       <h4>Experience</h4>
       <ul class="plain">
-        <li>[Role] — [Company]<i>26</i></li>
-        <li>[Role] — [Company]<i>25</i></li>
-        <li>[Role] — [Org]<i>24</i></li>
+        <li>DAMP Lab<i>26</i></li>
+        <li>MBL Lab<i>26</i></li>
+        <li>BU Math<i>26</i></li>
       </ul>
     </div>
     <div>
-      <h4>Stats</h4>
+      <h4>Toolkit</h4>
       <ul class="stats">
-        <li>Figma<span class="seg" style="--v:9"></span></li>
-        <li>HTML/CSS/JS<span class="seg" style="--v:8"></span></li>
-        <li>[After Effects]<span class="seg" style="--v:6"></span></li>
-        <li>[Blender]<span class="seg" style="--v:4"></span></li>
+        <li>CAD<span class="seg" style="--v:10"></span></li>
+        <li>Python<span class="seg" style="--v:9"></span></li>
+        <li>Robotics<span class="seg" style="--v:9"></span></li>
+        <li>Making<span class="seg" style="--v:10"></span></li>
       </ul>
     </div>
   </div>
-  <a class="btn" href="#">Download résumé.pdf ↓</a>
+  <div class="about-acts">
+    <button class="chip" data-act="ach" aria-expanded="false">✦ Achievements</button>
+    <button class="chip" data-act="offline">☾ Offline mode</button>
+  </div>
+  <div class="achievements" hidden>
+    <a class="ach" href="work/deskinator.html"><span class="ach-ico">01</span><b>First robot built</b><small>An autonomous desk-cleaning robot.</small></a>
+    <a class="ach" href="work/kazakh-ornament-linkage.html"><span class="ach-ico">02</span><b>Motion master</b><small>Designed and built a mechanical linkage.</small></a>
+    <a class="ach" href="work/sudoku-solver.html"><span class="ach-ico">03</span><b>Machine whisperer</b><small>Built a gantry that solves Sudoku.</small></a>
+    <div class="ach"><span class="ach-ico">04</span><b>World explorer</b><small>Kazakhstan → Boston.</small></div>
+  </div>
+  <a class="btn" href="#">↓ Download résumé.pdf</a>
 </template>
 
 <template id="tpl-inspiration" data-title="MOODBOARD.ZIP" data-path="C:\YURT\INSPO\" data-status="7 items · extracted">

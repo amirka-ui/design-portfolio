@@ -528,3 +528,20 @@ button { font: inherit; color: inherit; }
 .enter-hint .yurt-ico { display: block; }
 .enter-hint .arr { display: inline-block; transition: transform 0.2s ease; font-size: 14px; }
 .enter-hint:hover .arr { transform: translateX(4px); }
+
+/* about: profile extras */
+.about-acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.chip { padding: 7px 13px; border: 1.5px solid var(--ink); border-radius: 999px; background: #fff; color: var(--ink); cursor: pointer;
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; transition: background 0.15s, box-shadow 0.15s; }
+.chip:hover, .chip[aria-expanded="true"] { background: #e6edff; box-shadow: 2px 2px 0 var(--accent); }
+.achievements { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 10px; }
+.achievements[hidden] { display: none; }
+.ach { display: grid; grid-template-columns: 30px 1fr; gap: 0 10px; align-items: center; padding: 9px 10px;
+  border: 1.5px solid var(--ink); border-radius: 8px; background: linear-gradient(135deg, #f5f8ff, #e6edff); text-decoration: none; color: var(--ink);
+  transition: transform 0.15s, box-shadow 0.15s; }
+a.ach:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--accent); }
+.ach-ico { grid-row: span 2; width: 30px; height: 30px; display: grid; place-items: center; border: 1.5px solid var(--ink); border-radius: 6px; background: #a9c0ff;
+  font-family: var(--dot); font-weight: 900; font-size: 12px; }
+.ach b { font-family: var(--dot); font-weight: 900; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; line-height: 1.2; }
+.ach small { font-size: 11.5px; color: var(--ink-2); line-height: 1.35; }
+@media (max-width: 560px) { .achievements { grid-template-columns: 1fr; } }
