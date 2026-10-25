@@ -106,7 +106,7 @@ main section h2::before {
   margin-right: 12px; vertical-align: 2px; letter-spacing: 0.02em;
 }
 
-/* twinkling sparkles in the margins */
+/* sparkles in the margins */
 .sparkles { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
 .sparkles i {
   position: absolute; font-style: normal; font-size: 22px; line-height: 1; color: var(--c);

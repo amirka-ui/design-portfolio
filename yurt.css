@@ -484,7 +484,7 @@ button { font: inherit; color: inherit; }
 [data-mode="day"] .cab1 { stroke: #6fd6b0; }
 [data-mode="day"] .cab2 { stroke: #ffcf4a; }
 [data-mode="day"] .cab3 { stroke: #b49cf5; }
-/* blue-tinted object fills become warm cream in the day */
+/* in day mode, blue objects turn warm cream */
 [data-mode="day"] #insideSvg [fill="#e6ebfa"] { fill: #fffaf0; }
 [data-mode="day"] #insideSvg [fill="#dfe5f7"] { fill: #fff3e3; }
 [data-mode="day"] #insideSvg [fill="#b4c0e6"] { fill: #f6d9c4; }

@@ -117,7 +117,7 @@ const box = document.getElementById('linkage3d');
 const slider = document.getElementById('crank');
 const playBtn = document.getElementById('play');
 
-// pivot axes from the assembly, in metres (screws through two plates each)
+// pivot points from the CAD, in metres (each screw joins two plates)
 const A = new THREE.Vector2(0.01627, -0.01191); // crank pivot on the ground plate
 const B = new THREE.Vector2(-0.01056, 0.06346); // rocker pivot on the ground plate
 const C0 = new THREE.Vector2(0.00898, 0.01719); // crank <-> coupler
@@ -196,7 +196,7 @@ new GLTFLoader().parse(b64ToBuffer(window.ASSEM2_GLB), '', (gltf) => {
   });
   scene.add(root);
 
-  // frame the model, tilted slightly so the layers read
+  // camera: tilted a little so you can see the layers
   const size = new THREE.Box3().setFromObject(root).getSize(new THREE.Vector3());
   const center = new THREE.Box3().setFromObject(root).getCenter(new THREE.Vector3());
   controls.target.copy(center);
@@ -209,7 +209,7 @@ new GLTFLoader().parse(b64ToBuffer(window.ASSEM2_GLB), '', (gltf) => {
   pose(theta0);
 });
 
-// rigid 2D transform about z: rotate by phi, mapping point p0 to p
+// move and rotate a part so point p0 lands on p
 const T = new THREE.Matrix4(), R = new THREE.Matrix4(), T0 = new THREE.Matrix4(), M = new THREE.Matrix4();
 function rigid(p0, p, phi) {
   T.makeTranslation(p.x, p.y, 0);
@@ -221,7 +221,7 @@ function rigid(p0, p, phi) {
 let lastD = D0.clone();
 function pose(theta) {
   const C = new THREE.Vector2(A.x + rCrank * Math.cos(theta), A.y + rCrank * Math.sin(theta));
-  // D: intersection of circle(B, rRocker) and circle(C, rCoupler), on the branch nearest the last pose
+  // find where the rocker and coupler meet, keeping the closest match to the last frame
   const d = C.distanceTo(B);
   const a = (rRocker * rRocker - rCoupler * rCoupler + d * d) / (2 * d);
   const h = Math.sqrt(Math.max(rRocker * rRocker - a * a, 0));
