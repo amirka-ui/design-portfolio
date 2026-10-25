@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sudoku Solver — Amira Sagitkhan</title>
+  <meta name="description" content="A desktop machine that reads a printed Sudoku through a camera, solves it, and stamps the missing digits onto the paper.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400&display=swap">
+  <link rel="stylesheet" href="case.css">
+</head>
+<body>
+  <div class="sparkles" aria-hidden="true">
+    <i style="left:6%;top:18%;--c:#e0402a;--d:3.2s"></i>
+    <i style="left:11%;top:46%;--c:#3d6fe0;--d:4s;--s:.7"></i>
+    <i style="left:5%;top:74%;--c:#e0402a;--d:3.6s;--s:.8"></i>
+    <i style="right:7%;top:26%;--c:#3d6fe0;--d:3.4s"></i>
+    <i style="right:12%;top:58%;--c:#e0402a;--d:4.4s;--s:.7"></i>
+    <i style="right:6%;top:84%;--c:#3d6fe0;--d:3s;--s:.85"></i>
+  </div>
+  <div class="col">
+    <nav class="top">
+      <a class="back" href="../index.html#work"><span class="arr">←</span><svg width="22" height="18" viewBox="0 0 22 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M2 10 Q11 1 20 10"/><path d="M3 10 V16 H19 V10"/><path d="M2 10 H20"/><path class="door" d="M9 16 V12 H13 V16"/><path d="M11 4 V2"/></svg>Back to the yurt</a>
+      <a href="../index.html">Amira Sagitkhan</a>
+    </nav>
+
+    <header class="title">
+      <h1>Sudoku Solver</h1>
+      <p class="summary">A desktop machine that reads a printed Sudoku through an overhead camera, solves it, and stamps the missing digits onto the paper.</p>
+      <dl class="meta">
+        <dt>Year</dt><dd>2026</dd>
+        <dt>Type</dt><dd>Mechatronics, team project</dd>
+        <dt>My role</dt><dd>3D printing, assembly, troubleshooting</dd>
+        <dt>Stack</dt><dd>Marlin, Arduino Mega, Python, OpenCV</dd>
+      </dl>
+      <div class="orn-rule" aria-hidden="true"></div>
+    </header>
+  </div>
+
+  <div class="wide">
+    <figure>
+      <div class="img r169"><img src="sudoku/IMG_9822.jpg" alt="Side view of the Sudoku Solver machine on the workshop bench"></div>
+    </figure>
+  </div>
+
+  <main class="col">
+    <section>
+      <h2>Overview</h2>
+      <p>We wanted a machine that solves a paper Sudoku the way a person would: look at the page, think, and write the answers in.</p>
+      <p>The puzzle sheet is taped onto a raised bed. A camera above reads the grid, and a stamp head moves to each empty cell and presses in the right digit. It has 3.5 degrees of freedom: belt-driven X and Y stages, a looped stamp belt that rotates digits 1 to 9 into position, and a solenoid that presses the chosen digit onto the page. The solenoid counts as half, since it only moves up and down.</p>
+    </section>
+
+    <section>
+      <h2>My part was making it physically work</h2>
+      <p><strong>3D printing.</strong> I printed the motor mounts, idler blocks, belt carriages and stamp holder, then helped test them and noted what each part needed fixed or improved.</p>
+      <p><strong>Assembly.</strong> I built the aluminium-extrusion gantry, mounted it on the wooden base, installed the stepper motors, and fitted and tensioned the timing belts on the X and Y stages and the stamp belt.</p>
+      <p><strong>Troubleshooting.</strong> When something failed in testing, like a slipping belt, a part out of alignment or an axis not reaching its position, I found the cause and fixed it on the spot so the team could keep testing.</p>
+    </section>
+
+    <figure>
+      <div class="pair">
+        <div class="img r34"><img src="sudoku/IMG_7116.jpg" alt="Hand sketch of the stamp head mechanism on yellow paper" loading="lazy"></div>
+        <div class="img r34"><img src="sudoku/IMG_9535.jpg" alt="The push-pull solenoid mounted on the X carriage of the gantry" loading="lazy"></div>
+      </div>
+      <figcaption>The stamp head, from sketch to the solenoid mounted on the X carriage.</figcaption>
+    </figure>
+
+    <section>
+      <h2>It sees, reads, solves, plans, then stamps</h2>
+      <ol class="steps">
+        <li><b>See.</b> A live camera preview outlines the 9×9 grid in green. The operator presses Space to capture, and the image is flattened into a square, top-down view.</li>
+        <li><b>Read.</b> Each cell is cleaned up, with shadows divided out and grid lines removed, then checked for ink. A k-nearest-neighbour classifier trained on digits in 15 common fonts recognises the numbers.</li>
+        <li><b>Solve.</b> A backtracking solver fills the most constrained cell first.</li>
+        <li><b>Plan.</b> The stamp belt only turns forward, so the machine stamps all the 1s, then all the 2s, up to 9, visiting cells in nearest-neighbour order. It shows the plan as red dots on the camera image for a final check.</li>
+        <li><b>Stamp.</b> Python sends G-code over USB to Marlin. For each cell the carriage moves to the centre, the belt rotates the right digit under the head, and the solenoid fires for 80 ms.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>It would rather stop than stamp a wrong answer</h2>
+      <p>The solver also counts solutions. If a read gives no solution or more than one, a digit was misread, so the machine stops and asks the operator to correct the grid. Every puzzle it reads correctly is added to its training library, so recognition gets better with use.</p>
+    </section>
+
+    <section>
+      <h2>The machine calibrates itself</h2>
+      <p>To turn a cell in the camera image into a real machine position, it stamps at least four dots in the margin around the grid. The camera finds each new dot by comparing before-and-after photos, and a least-squares fit links paper millimetres to machine millimetres.</p>
+      <p>The script reports the error for each mark and warns if it's over 1 mm, if the scale is off, or if the paper has moved.</p>
+    </section>
+
+    <section>
+      <h2>We built it one axis at a time</h2>
+      <ol class="steps">
+        <li><b>One axis.</b> We started with a single X axis: cut the aluminium extrusion and printed first drafts of the carriage and motor mounts.</li>
+        <li><b>Adding Y.</b> We built two Y axes the same way and used them as the base that carries X.</li>
+        <li><b>Stamp head.</b> We added the solenoid and carriages and worked out how to connect the carriages to the motor blocks.</li>
+        <li><b>Vision, in parallel.</b> Meanwhile a teammate tested the camera and wrote the code that detects and solves the puzzle.</li>
+      </ol>
+    </section>
+
+    <figure>
+      <div class="img r43"><img src="sudoku/IMG_6979.jpg" alt="Early single-axis bench test of the gantry" loading="lazy"></div>
+      <figcaption>The first single-axis test.</figcaption>
+    </figure>
+
+    <figure>
+      <div class="pair">
+        <div class="img r43"><img src="sudoku/IMG_7114.jpg" alt="The X axis resting on the first pair of Y rails, with the RAMPS board beside it" loading="lazy"></div>
+        <div class="img r43"><img src="sudoku/IMG_9527.jpg" alt="3D-printed motor mounts, idler blocks and supports laid out on the bench next to the gantry" loading="lazy"></div>
+      </div>
+      <figcaption>Left: adding Y under the first X axis. Right: printed mounts and supports laid out for assembly.</figcaption>
+    </figure>
+
+    <section>
+      <h2>Under the hood</h2>
+      <ul class="plain">
+        <li><b>Frame.</b> An XY gantry of slotted aluminium extrusion on a plywood base, with about 140 × 115 mm of travel. Two Y stages move together and an X rail bridges them.</li>
+        <li><b>Motion.</b> NEMA 17 steppers drive timing belts over toothed pulleys and idlers.</li>
+        <li><b>Stamp head.</b> A push-pull solenoid presses a looped belt of digit stamps 1 to 9, spaced 45 mm apart, moved by its own stepper.</li>
+        <li><b>Printed parts.</b> Black motor mounts, idler blocks, belt clamps and carriage plates, plus red end supports.</li>
+        <li><b>Bed and camera.</b> A laser-cut finger-jointed box raises the sheet, and a plywood arm on an aluminium post holds the camera face-down.</li>
+        <li><b>Electronics.</b> A RAMPS shield on an Arduino Mega running Marlin. X and Y use the X and Z drivers, the stamp belt uses the extruder channel, and the solenoid switches from pin D10.</li>
+        <li><b>Software.</b> Python with OpenCV and NumPy, split into <code>sudoku_solver.py</code>, <code>train_fonts.py</code>, <code>calibrate_grid.py</code>, <code>test_motion.py</code> and <code>run_machine.py</code>.</li>
+        <li><b>Safety.</b> Every move is checked against travel limits, solenoid presses are capped at 500 ms, and the solenoid always switches off on errors or aborts.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Result</h2>
+      <p>In the demo, the camera detects the grid, the carriage moves cell by cell across the sheet, and the missing digits are stamped into the empty cells.</p>
+    </section>
+
+    <figure class="video">
+      <video controls playsinline preload="none" poster="sudoku/demo-poster.jpg">
+        <source src="sudoku/demo.mp4" type="video/mp4">
+        Your browser can't play this video. <a href="sudoku/demo.mp4">Download it instead.</a>
+      </video>
+      <figcaption>Demo: the machine reads the grid and stamps the missing digits.</figcaption>
+    </figure>
+
+    <div class="orn-rule" aria-hidden="true"></div>
+    <footer>
+      <span>© 2026 Amira Sagitkhan</span>
+      <a href="../index.html#work">All projects →</a>
+    </footer>
+  </main>
+</body>
+</html>

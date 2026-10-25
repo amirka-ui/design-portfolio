@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kazakh Ornament Linkage — Amira Sagitkhan</title>
+  <meta name="description" content="A moving sculpture: four laser-cut plates shaped like traditional Kazakh ornament, pinned into a four-bar linkage that folds and re-forms as it turns.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400&display=swap">
+  <link rel="stylesheet" href="case.css">
+</head>
+<body>
+  <div class="sparkles" aria-hidden="true">
+    <i style="left:6%;top:18%;--c:#e0402a"></i>
+    <i style="left:11%;top:46%;--c:#3d6fe0;--s:.7"></i>
+    <i style="left:5%;top:74%;--c:#e0402a;--s:.8"></i>
+    <i style="right:7%;top:26%;--c:#3d6fe0"></i>
+    <i style="right:12%;top:58%;--c:#e0402a;--s:.7"></i>
+    <i style="right:6%;top:84%;--c:#3d6fe0;--s:.85"></i>
+  </div>
+  <div class="col">
+    <nav class="top">
+      <a class="back" href="../index.html#play"><span class="arr">←</span><svg width="22" height="18" viewBox="0 0 22 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M2 10 Q11 1 20 10"/><path d="M3 10 V16 H19 V10"/><path d="M2 10 H20"/><path class="door" d="M9 16 V12 H13 V16"/><path d="M11 4 V2"/></svg>Back to the yurt</a>
+      <a href="../index.html">Amira Sagitkhan</a>
+    </nav>
+
+    <header class="title">
+      <h1>Kazakh Ornament Linkage</h1>
+      <p class="summary">A moving sculpture made of four laser-cut plates shaped like traditional Kazakh ornament. Turn one plate and the whole ornament folds, opens and re-forms in a continuous loop.</p>
+      <dl class="meta">
+        <dt>Year</dt><dd>2025</dd>
+        <dt>Type</dt><dd>Play, kinetic sculpture</dd>
+        <dt>Mechanism</dt><dd>Crank-rocker four-bar linkage, 1 DOF</dd>
+        <dt>Tools</dt><dd>SolidWorks, Epilog laser cutter, MDF</dd>
+      </dl>
+      <div class="orn-rule" aria-hidden="true"></div>
+    </header>
+  </div>
+
+  <div class="wide">
+    <figure class="viewer">
+      <div id="linkage3d" class="stage3d"><span class="loading">Loading the model…</span></div>
+      <div class="viewer-ui">
+        <button id="play" type="button">Pause</button>
+        <input id="crank" type="range" min="0" max="360" step="1" value="0" aria-label="Turn the crescent">
+        <span class="hint">Drag to rotate · scroll to zoom · slide to turn the crescent</span>
+      </div>
+      <figcaption>The real SolidWorks assembly, moving with the four-bar linkage math.</figcaption>
+    </figure>
+  </div>
+
+  <main class="col">
+    <section>
+      <h2>What it is</h2>
+      <p>Four flat plates, each drawn as a piece of Kazakh ornament: curling ram's-horn scrolls (қошқар мүйіз), trefoil tips and a crescent blade. They're pinned together into a single-degree-of-freedom four-bar linkage, so turning one plate makes the whole ornament move.</p>
+    </section>
+
+    <section>
+      <h2>Why I made it</h2>
+      <p>I wanted to see whether the ornaments I grew up with in Astana could move, instead of sitting flat on felt and carpets.</p>
+      <p>I drew each plate as a piece of ornament first, and only then placed the pivots, so the mechanism stays hidden inside the pattern. I modelled the plates, chose the hardware and assembled the linkage in SolidWorks.</p>
+    </section>
+
+    <section>
+      <h2>One plate turns, the rest follow</h2>
+      <p>The four plates form a crank-rocker linkage. One plate stays fixed and holds two pivots. The crescent spins a full circle around one of them, and the scroll plate swings back and forth around the other. The top ornament links the two moving pivots, so it rolls and tilts as the others move, and the silhouette keeps rebuilding itself.</p>
+      <p>From the motion study, the link lengths are roughly <strong>1 : 2 : 3.3 : 2.7</strong> (crank, rocker, coupler, ground). The shortest plus the longest (4.3) is less than the other two together (4.7). That meets the Grashof condition, which is why the crescent can keep turning all the way round without the linkage locking.</p>
+    </section>
+
+    <section>
+      <h2>Under the hood</h2>
+      <ul class="plain">
+        <li><b>Plates.</b> Four custom laser-cut parts, each one ornament. They sit in different layers, so they sweep past and over each other without colliding.</li>
+        <li><b>Pivots.</b> Alloy-steel socket head screws act as the pins, in three lengths for the different stack heights (McMaster-Carr 91290A150, 91290A170, 91290A176).</li>
+        <li><b>Spacing.</b> Aluminium unthreaded spacers (94669A002, 94669A014) hold the layers apart, so the plates turn freely instead of rubbing.</li>
+        <li><b>Retention.</b> Stainless washers (93475A230) and nylon-insert locknuts (94645A101) hold each joint together without clamping it tight. The nylon insert keeps the nut from backing off as the joint rotates.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Cut from one sheet</h2>
+      <p>I cut the plates from a single sheet of MDF on an Epilog laser cutter, nesting the ornaments side by side to use as little material as possible. The pivot holes are cut in the same pass, so they line up exactly with the CAD.</p>
+    </section>
+
+    <figure class="motion">
+      <video autoplay loop muted playsinline poster="linkage/motion-poster.jpg">
+        <source src="linkage/motion.mp4" type="video/mp4">
+      </video>
+      <figcaption>The original SolidWorks motion study.</figcaption>
+    </figure>
+
+    <figure class="portrait">
+      <div class="img r34"><img src="linkage/laser.jpg" alt="The ornament plates being cut from a sheet of MDF in an Epilog laser cutter" loading="lazy"></div>
+      <figcaption>Cutting the ornament plates on the Epilog.</figcaption>
+    </figure>
+
+    <div class="orn-rule" aria-hidden="true"></div>
+    <footer>
+      <span>© 2026 Amira Sagitkhan</span>
+      <a href="../index.html#play">All play →</a>
+    </footer>
+  </main>
+  <script type="importmap">
+    { "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    } }
+  </script>
+  <script src="linkage/assem2-data.js"></script>
+  <script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const box = document.getElementById('linkage3d');
+const slider = document.getElementById('crank');
+const playBtn = document.getElementById('play');
+
+// pivot axes from the assembly, in metres (screws through two plates each)
+const A = new THREE.Vector2(0.01627, -0.01191); // crank pivot on the ground plate
+const B = new THREE.Vector2(-0.01056, 0.06346); // rocker pivot on the ground plate
+const C0 = new THREE.Vector2(0.00898, 0.01719); // crank <-> coupler
+const D0 = new THREE.Vector2(-0.0679, 0.08114); // rocker <-> coupler
+const rCrank = C0.distanceTo(A);
+const rRocker = D0.distanceTo(B);
+const rCoupler = D0.distanceTo(C0);
+const theta0 = Math.atan2(C0.y - A.y, C0.x - A.x);
+
+// which part moves with which link
+const group = {
+  ground: ['kaz4', '91290A150', 'Washer-6', 'Washer-7', '91290A176_Alloy Steel Socket Head Screw-1', 'Locknut-2', 'Locknut-4'],
+  crank: ['kz3', '91290A176_Alloy Steel Socket Head Screw-2', 'Washer-9', 'Locknut-3', '94669A002'],
+  rocker: ['kazakh2', '91290A170', 'Washer-8', 'Locknut-1', '94669A014'],
+  coupler: ['kazakhhh'],
+};
+const PLATE_COLORS = { kz3: 0xd9a66b, kaz4: 0xe8c79a, kazakh2: 0xc98f5a, kazakhhh: 0xe3b27c };
+
+function roleOf(name) {
+  for (const [role, keys] of Object.entries(group)) if (keys.some((k) => name.includes(k))) return role;
+  return 'ground';
+}
+
+// renderer
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+box.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(32, 1, 0.001, 10);
+scene.add(new THREE.HemisphereLight(0xffffff, 0xd9d4c8, 1.6));
+const sun = new THREE.DirectionalLight(0xffffff, 2.2);
+sun.position.set(0.3, -0.4, 0.8);
+scene.add(sun);
+const rim = new THREE.DirectionalLight(0xbfd0ff, 0.9);
+rim.position.set(-0.5, 0.6, 0.4);
+scene.add(rim);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.enablePan = false;
+controls.minDistance = 0.12;
+controls.maxDistance = 0.9;
+
+function resize() {
+  const w = box.clientWidth, h = box.clientHeight;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+}
+addEventListener('resize', resize);
+resize();
+
+const parts = []; // { obj, role, base: Matrix4 }
+
+function b64ToBuffer(b64) {
+  const bin = atob(b64);
+  const out = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+  return out.buffer;
+}
+
+new GLTFLoader().parse(b64ToBuffer(window.ASSEM2_GLB), '', (gltf) => {
+  const root = gltf.scene;
+  root.traverse((o) => {
+    if (!o.isMesh) return;
+    const plate = Object.keys(PLATE_COLORS).find((k) => o.name.startsWith(k + '-'));
+    o.material = plate
+      ? new THREE.MeshStandardMaterial({ color: PLATE_COLORS[plate], roughness: 0.85, metalness: 0 })
+      : new THREE.MeshStandardMaterial({ color: 0x9aa1ad, roughness: 0.35, metalness: 0.85 });
+    o.updateMatrix();
+    o.matrixAutoUpdate = false;
+    parts.push({ obj: o, role: roleOf(o.name), base: o.matrix.clone() });
+  });
+  scene.add(root);
+
+  // frame the model, tilted slightly so the layers read
+  const size = new THREE.Box3().setFromObject(root).getSize(new THREE.Vector3());
+  const center = new THREE.Box3().setFromObject(root).getCenter(new THREE.Vector3());
+  controls.target.copy(center);
+  const dist = Math.max(size.x, size.y) * 2.1;
+  camera.position.set(center.x + dist * 0.18, center.y - dist * 0.55, center.z + dist * 0.82);
+  camera.up.set(0, 0, 1);
+  controls.update();
+
+  box.classList.add('ready');
+  pose(theta0);
+});
+
+// rigid 2D transform about z: rotate by phi, mapping point p0 to p
+const T = new THREE.Matrix4(), R = new THREE.Matrix4(), T0 = new THREE.Matrix4(), M = new THREE.Matrix4();
+function rigid(p0, p, phi) {
+  T.makeTranslation(p.x, p.y, 0);
+  R.makeRotationZ(phi);
+  T0.makeTranslation(-p0.x, -p0.y, 0);
+  return M.copy(T).multiply(R).multiply(T0).clone();
+}
+
+let lastD = D0.clone();
+function pose(theta) {
+  const C = new THREE.Vector2(A.x + rCrank * Math.cos(theta), A.y + rCrank * Math.sin(theta));
+  // D: intersection of circle(B, rRocker) and circle(C, rCoupler), on the branch nearest the last pose
+  const d = C.distanceTo(B);
+  const a = (rRocker * rRocker - rCoupler * rCoupler + d * d) / (2 * d);
+  const h = Math.sqrt(Math.max(rRocker * rRocker - a * a, 0));
+  const ex = (C.x - B.x) / d, ey = (C.y - B.y) / d;
+  const px = B.x + a * ex, py = B.y + a * ey;
+  const s1 = new THREE.Vector2(px - h * ey, py + h * ex);
+  const s2 = new THREE.Vector2(px + h * ey, py - h * ex);
+  const D = s1.distanceTo(lastD) < s2.distanceTo(lastD) ? s1 : s2;
+  lastD = D;
+
+  const ang = (v) => Math.atan2(v.y, v.x);
+  const m = {
+    ground: new THREE.Matrix4(),
+    crank: rigid(A, A, theta - theta0),
+    rocker: rigid(B, B, ang(D.clone().sub(B)) - ang(D0.clone().sub(B))),
+    coupler: rigid(C0, C, ang(D.clone().sub(C)) - ang(D0.clone().sub(C0))),
+  };
+  for (const p of parts) p.obj.matrix.copy(m[p.role]).multiply(p.base);
+}
+
+// controls: auto-turn by default, slider to scrub
+let playing = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+let theta = theta0;
+playBtn.textContent = playing ? 'Pause' : 'Play';
+playBtn.addEventListener('click', () => {
+  playing = !playing;
+  playBtn.textContent = playing ? 'Pause' : 'Play';
+});
+slider.addEventListener('input', () => {
+  playing = false;
+  playBtn.textContent = 'Play';
+  theta = theta0 + (slider.value / 360) * Math.PI * 2;
+});
+
+let prev = performance.now();
+renderer.setAnimationLoop((now) => {
+  const dt = Math.min((now - prev) / 1000, 0.05);
+  prev = now;
+  if (playing) {
+    theta += dt * 0.9;
+    slider.value = ((((theta - theta0) / (Math.PI * 2)) * 360) % 360 + 360) % 360;
+  }
+  if (parts.length) pose(theta);
+  controls.update();
+  renderer.render(scene, camera);
+});
+  </script>
+</body>
+</html>

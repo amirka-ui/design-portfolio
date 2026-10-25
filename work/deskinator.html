@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Deskinator — Amira Sagitkhan</title>
+  <meta name="description" content="A battery-powered robot that cleans a 4 × 4 ft desk on its own, using stereo vision to stay away from the edges.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400&display=swap">
+  <link rel="stylesheet" href="case.css">
+</head>
+<body>
+  <div class="sparkles" aria-hidden="true">
+    <i style="left:6%;top:18%;--c:#e0402a"></i>
+    <i style="left:11%;top:46%;--c:#3d6fe0;--s:.7"></i>
+    <i style="left:5%;top:74%;--c:#e0402a;--s:.8"></i>
+    <i style="right:7%;top:26%;--c:#3d6fe0"></i>
+    <i style="right:12%;top:58%;--c:#e0402a;--s:.7"></i>
+    <i style="right:6%;top:84%;--c:#3d6fe0;--s:.85"></i>
+  </div>
+  <div class="col">
+    <nav class="top">
+      <a class="back" href="../index.html#work"><span class="arr">←</span><svg width="22" height="18" viewBox="0 0 22 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M2 10 Q11 1 20 10"/><path d="M3 10 V16 H19 V10"/><path d="M2 10 H20"/><path class="door" d="M9 16 V12 H13 V16"/><path d="M11 4 V2"/></svg>Back to the yurt</a>
+      <a href="../index.html">Amira Sagitkhan</a>
+    </nav>
+
+    <header class="title">
+      <h1>Deskinator</h1>
+      <p class="summary">A battery-powered robot that cleans a 4 × 4 ft desk on its own. Switch it on, wave at its camera, and it sweeps the table, stays away from the edges, and lights an LED when it's done.</p>
+      <dl class="meta">
+        <dt>Year</dt><dd>2026</dd>
+        <dt>Type</dt><dd>Robotics, team of four</dd>
+        <dt>My role</dt><dd>CAD housing, vacuum system, assembly</dd>
+        <dt>Stack</dt><dd>ROS 2, Jetson Orin Nano, ESP32, ZED 2i</dd>
+        <dt>Course</dt><dd>EK210 Introduction to Design, Boston University</dd>
+      </dl>
+      <div class="orn-rule" aria-hidden="true"></div>
+    </header>
+  </div>
+
+  <div class="wide">
+    <figure>
+      <div class="img r169"><img src="deskinator/robot.jpg" alt="The Deskinator robot on a workshop table: a purple housing with a top-mounted fan, a stereo camera on a stand, and four blue wheels"></div>
+    </figure>
+  </div>
+
+  <main class="col">
+    <section>
+      <h2>Overview</h2>
+      <p>We wanted a hands-free cleaner: put it on the desk, start it without touching it, and come back to a clean table.</p>
+      <p>A ZED 2i stereo camera and an NVIDIA Jetson Orin Nano Super handle vision and navigation through ROS 2, while a microcontroller handles the motors. It vacuums up small debris such as rice grains and never drives off the edge.</p>
+    </section>
+
+    <section>
+      <h2>I built the body and the vacuum</h2>
+      <p><strong>CAD housing.</strong> I designed the 3D-printed PLA enclosure as two compartments. One half holds the Jetson, Arduino, motor driver and battery; the other is the debris chamber. It has cutouts for the camera, LEDs, fan, power switch, Jetson I/O and charging access, and every part (body, lid, fan, funnel, camera holder) can be removed and replaced.</p>
+      <p><strong>Vacuum system.</strong> I built the suction path around a top-mounted Noctua PC fan. A funnel-shaped intake concentrates the airflow into a small pickup area and feeds a separate collection chamber, and a mesh filter keeps debris away from the fan. Sealing the vacuum off from the electronics also made the suction stronger, and the funnel lifts out so the chamber can be emptied.</p>
+      <p><strong>Assembly.</strong> I put the robot together: the four geared DC motors and wheels screwed directly onto the body, the fan and funnel, the camera holder, and the electronics and battery inside the housing.</p>
+    </section>
+
+    <figure>
+      <div class="img r43"><img class="contain" src="deskinator/cad-housing.jpg" alt="CAD render of the two-compartment housing, with the round fan opening and the I/O cutouts on the side" loading="lazy"></div>
+      <figcaption>The housing: electronics on one side, the debris chamber under the fan opening on the other.</figcaption>
+    </figure>
+
+    <figure>
+      <div class="pair">
+        <div class="img r43"><img class="contain" src="deskinator/cad-funnel.jpg" alt="CAD render of the funnel intake that mounts under the fan" loading="lazy"></div>
+        <div class="img r43"><img class="contain" src="deskinator/cad-assembly.jpg" alt="CAD render of the full assembly with the camera holder and fan mount on the housing" loading="lazy"></div>
+      </div>
+      <figcaption>Left: the funnel intake under the fan. Right: the full assembly with the camera holder.</figcaption>
+    </figure>
+
+    <section>
+      <h2>It starts, finds the edge, and sweeps in lanes</h2>
+      <ol class="steps">
+        <li><b>Start.</b> Flip the rocker switch and wave a hand in front of the camera. ROS 2 brings up the camera, motor and edge-detection nodes, and the vacuum fan turns on.</li>
+        <li><b>See the edge.</b> The Jetson uses depth from the stereo camera to find where the table ends, so the robot never drives off it.</li>
+        <li><b>Sweep the desk.</b> An edge-reactive state machine drives forward until it sees an edge, turns 90°, steps sideways, turns 90° again, and repeats, covering the table in back-and-forth lanes.</li>
+        <li><b>Hold speed.</b> Under every move, the ESP32 runs a PID loop on each wheel, using encoder feedback to keep the commanded speed despite desk friction or battery voltage drop.</li>
+        <li><b>Finish.</b> When it meets an edge during a sideways step, it has reached the far side. It turns the vacuum off and lights the completion LED.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>We chose vision over simple sensors</h2>
+      <table class="tbl">
+        <thead><tr><th>Function</th><th>Chosen</th><th>Alternatives</th></tr></thead>
+        <tbody>
+          <tr><td>Start signal</td><td>Hand gesture to the camera</td><td>Sound sensor, motion sensor</td></tr>
+          <tr><td>Edge detection</td><td>Stereo depth vision</td><td>Infrared sensors, light sensor</td></tr>
+          <tr><td>Pick up debris</td><td>Fan-driven vacuum</td><td>Sweeper or broom, adhesive</td></tr>
+          <tr><td>Store debris</td><td>Separate chamber in the housing</td><td>Open internal section, external container</td></tr>
+          <tr><td>Done signal</td><td>LED</td><td>Buzzer, LCD screen</td></tr>
+        </tbody>
+      </table>
+      <p>Computer vision cost more than simple sensors, but it handles edge detection and also makes it possible to find debris later.</p>
+    </section>
+
+    <section>
+      <h2>Under the hood</h2>
+      <ul class="plain">
+        <li><b>Housing.</b> A two-part box with a 3D-printed PLA body and a laser-cut wood top plate in the final build. A mesh filter splits the electronics half from the debris half, the fan sits on top, the LEDs above it, and the rear face carries the Jetson's I/O cutouts.</li>
+        <li><b>Vacuum.</b> A Noctua NF-F12 iPPC-3000 PWM fan above a funnel intake, adapted from a computer-fan-and-bottle vacuum. The funnel concentrates airflow at the pickup point and doubles as the collection chamber.</li>
+        <li><b>Drive.</b> Four JGA25-371 geared DC motors with encoders, replacing the prototype's Gikfun hobby motors, which were less durable and less precise in turns.</li>
+        <li><b>Power.</b> An 11.1 V 3S 5200 mAh LiPo with a buck converter for the 5 V logic rail and a 3-way rocker switch. The system draws about 2310 mA, giving roughly 2.3 hours of runtime.</li>
+        <li><b>Control.</b> The Jetson sends wheel speed targets to the ESP32 over USB-C. The ESP32 runs the PID loop through a 2×15 A H-bridge driver, and an Arduino Leonardo drives the fan with PWM and switches the red and green status LEDs.</li>
+        <li><b>Serviceability.</b> Every part can be removed and replaced, and the battery leads are easy to reach for charging.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>It cleaned the desk without falling off</h2>
+      <p>The Deskinator cleaned the desk autonomously, never drove off an edge, and finished its cycles within the time limit. Debris inside its intake path was fully picked up in one pass.</p>
+      <table class="tbl">
+        <thead><tr><th>Objective</th><th>Target</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td>Speed</td><td>at least 0.25 ft/s</td><td>0.4 ft/s</td></tr>
+          <tr><td>Battery life</td><td>at least 15 min</td><td>about 2.3 h (from the power budget)</td></tr>
+          <tr><td>Autonomy</td><td>no help during a cycle</td><td>met, with edge avoidance throughout</td></tr>
+          <tr><td>Rice pickup</td><td>3 cm pickup radius</td><td>1.43 cm average; no grains left in that path</td></tr>
+          <tr><td>Easy to clean</td><td>separate debris chamber</td><td>met; the funnel lifts out to empty</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Slower cleaned better.</strong> The geared motors cut top speed, but tests at 50%, 100%, 150% and 200% speed showed that running below 100% picked up more debris.</p>
+      <p><strong>Limitations.</strong> Debris outside the narrow intake was missed, motor alignment and desk friction sometimes made motion less consistent, and the cluster-planning mode wasn't finished in time.</p>
+    </section>
+
+    <figure class="video landscape">
+      <video controls playsinline preload="none" poster="deskinator/demo-poster.jpg">
+        <source src="deskinator/demo.mp4" type="video/mp4">
+        Your browser can't play this video. <a href="deskinator/demo.mp4">Download it instead.</a>
+      </video>
+      <figcaption>Final video: how it was built and how it cleans.</figcaption>
+    </figure>
+
+    <section>
+      <h2>Next: clean only where it's dirty</h2>
+      <p>We designed, but didn't build, a cluster-planning mode. The camera finds the rice, the robot plans the shortest tour through the clusters (a small Traveling Salesman problem, solved with A* and a minimum-spanning-tree heuristic), and it vacuums only where there's debris. It would reuse the same Nav2 and ESP32 PID layers, so only the planning layer changes.</p>
+    </section>
+
+    <section>
+      <h2>What I learned</h2>
+      <ul class="plain">
+        <li><b>Iterate early.</b> Repeated prototyping and testing exposed airflow, motor and navigation problems that weren't obvious on paper.</li>
+        <li><b>Small geometry changes matter.</b> Changes to the funnel shape and internal layout had a big effect on suction.</li>
+        <li><b>Simple can be more reliable.</b> The edge-reactive navigation worked better in practice than the more complex planner.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Project details</h2>
+      <ul class="plain">
+        <li><b>Team.</b> Amira Sagitkhan, Angie Chang, Aakash Kumar, Riasat Audhy (Team A1, Section 2A)</li>
+        <li><b>Course.</b> EK210 Introduction to Design, Boston University, spring 2026</li>
+        <li><b>Parts cost.</b> $1,191.89, including the $499 ZED 2i camera and $249 Jetson</li>
+      </ul>
+    </section>
+
+    <div class="orn-rule" aria-hidden="true"></div>
+    <footer>
+      <span>© 2026 Amira Sagitkhan</span>
+      <a href="../index.html#work">All projects →</a>
+    </footer>
+  </main>
+</body>
+</html>
