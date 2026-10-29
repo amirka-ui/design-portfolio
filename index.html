@@ -7,8 +7,8 @@
   <meta name="description" content="Amira Sagitkhan — mechanical engineer. Step inside the yurt to see the work.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Doto:wght@700;800;900&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="yurt.css?v=3">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Doto:wght@700;800;900&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="yurt.css?v=8">
 </head>
 <body>
 <div class="scan" aria-hidden="true"></div>
@@ -384,8 +384,12 @@
         <path d="M239 400 v14 M239 446 v14 M209 430 h14 M255 430 h14" stroke-width="1.5"/>
       </g>
       <g transform="rotate(-2 126 470)">
-        <rect x="76" y="436" width="102" height="78" fill="#f0f3fd"/>
-        <path d="M94 496 V482 Q127 458 160 482 V496Z M120 496 v-12 h14 v12 M112 470 l15 -10 l15 10" fill="none" stroke-width="1.5"/>
+        <image href="inspo/wall-bull.jpg" x="76" y="436" width="102" height="78" preserveAspectRatio="xMidYMid slice"/>
+        <rect x="76" y="436" width="102" height="78" fill="none"/>
+        <g transform="rotate(4 128 530)">
+          <rect x="64" y="519" width="130" height="20" fill="#fff8d6" stroke="#1b1d22" stroke-width="1"/>
+          <text x="129" y="534" text-anchor="middle" font-family="Caveat, 'Comic Sans MS', cursive" font-size="13" fill="#1b1d22" stroke="none">my little brother's drawing</text>
+        </g>
       </g>
       <rect x="298" y="300" width="44" height="44" fill="#8fb0ff" transform="rotate(6 320 322)"/>
       <path d="M306 316 h24 M306 324 h18 M306 332 h22" stroke-width="1.2" transform="rotate(6 320 322)"/>
@@ -530,10 +534,8 @@
       <rect x="1300" y="276" width="230" height="384" fill="transparent" stroke="none"/>
       <g transform="rotate(-4 1374 360)">
         <rect x="1324" y="292" width="100" height="120" fill="#f0f3fd"/>
-        <rect x="1332" y="300" width="84" height="84" fill="#c9d6f5"/>
-        <rect x="1332" y="300" width="84" height="84" fill="url(#dotsB)" opacity="0.55" stroke="none"/>
-        <circle cx="1374" cy="336" r="16" fill="#e6ebfa"/>
-        <path d="M1344 384 q30 -44 60 0" fill="#e6ebfa"/>
+        <image href="inspo/wall-portrait.jpg" x="1332" y="300" width="84" height="84" preserveAspectRatio="xMidYMin slice"/>
+        <rect x="1332" y="300" width="84" height="84" fill="none"/>
         <path d="M1336 398 h40" stroke-width="1.4"/>
       </g>
       <g transform="rotate(6 1470 340)">
@@ -747,9 +749,9 @@
     <div>
       <h4>Experience</h4>
       <ul class="plain">
-        <li>DAMP Lab<i>26</i></li>
-        <li>MBL Lab<i>26</i></li>
-        <li>BU Math<i>26</i></li>
+        <li>DAMP Lab — Undergraduate Researcher<i>26</i></li>
+        <li>MBL Lab — Research Assistant<i>26</i></li>
+        <li>BU Math — Calculus II Grader<i>26</i></li>
       </ul>
     </div>
     <div>
@@ -769,24 +771,13 @@
   <div class="achievements" hidden>
     <div class="ach"><span class="ach-ico">01</span><b>World explorer</b><small>Kazakhstan → Boston.</small></div>
   </div>
-  <a class="btn" href="#">↓ Download résumé.pdf</a>
 </template>
 
-<template id="tpl-inspiration" data-title="MOODBOARD.ZIP" data-path="C:\YURT\INSPO\" data-status="5 items · extracted">
-  <p class="lead">People, places and things I keep coming back to.</p>
-  <div class="tiles">
-    <span class="ph" style="--c1:#1b1d22;--c2:#3a3f48" data-label="✦"></span>
-    <span class="ph" style="--c1:#c9d6f5;--c2:#4f7cf0" data-label="img"></span>
-    <span class="ph" style="--c1:#f5f6f8;--c2:#c9ced8" data-label="img"></span>
-    <span class="ph" style="--c1:#ff9d84;--c2:#e0402a" data-label="img"></span>
-  </div>
-  <ul class="links">
-    <li><a href="https://www.ghibli.jp/" target="_blank" rel="noopener"><i>01</i><b>Studio Ghibli</b><span>Studio ↗</span></a></li>
-    <li><a href="https://en.wikipedia.org/wiki/Serial_Experiments_Lain" target="_blank" rel="noopener"><i>02</i><b>Serial Experiments Lain, Evangelion, Hunter x Hunter</b><span>Watch ↗</span></a></li>
-    <li><a href="https://en.wikipedia.org/wiki/The_Master_and_Margarita" target="_blank" rel="noopener"><i>03</i><b>A Hero of Our Time — Lermontov, The Master and Margarita — Bulgakov</b><span>Book ↗</span></a></li>
-    <li><a href="https://en.wikipedia.org/wiki/Almond_Blossoms" target="_blank" rel="noopener"><i>04</i><b>Van Gogh — Almond Blossom</b><span>Artist ↗</span></a></li>
-    <li><a><i>05</i><b><span class="swatch" style="--sw:#8a5cf6"></span>Purple</b><span>Color</span></a></li>
-  </ul>
+<template id="tpl-inspiration" data-title="MOODBOARD.ZIP" data-path="C:\YURT\INSPO\" data-status="moodboard · extracted">
+  <a class="collage" href="inspo/moodboard.jpg" target="_blank" rel="noopener" title="Open full size">
+    <img src="inspo/moodboard-sm.jpg" srcset="inspo/moodboard-sm.jpg 1440w, inspo/moodboard.jpg 3840w" sizes="(max-width: 700px) 100vw, 940px" alt="Moodboard collage: Princess Mononoke, Winged Victory of Samothrace, Van Gogh, Serial Experiments Lain, Hunter x Hunter, Evangelion, The Master and Margarita, Aivazovsky, snowy forests, the Kazakh steppe, Silent Hill 2, Tokyo Ghoul, Malevich and more">
+    <span class="spot" aria-hidden="true"></span>
+  </a>
 </template>
 
 <template id="tpl-contact" data-title="MESSENGER" data-path="amira.s — online" data-status="channel 05 · encrypted · say hi">
@@ -796,12 +787,12 @@
     <div class="msg them"><b>amira.s</b>I'm open to internships, collabs and good conversations. Tea's still warm.</div>
     <div class="msg me"><b>you</b><span class="typing"><i></i><i></i><i></i></span></div>
   </div>
-  <a class="compose" href="mailto:[your@email.com]"><span>To: [your@email.com]</span><b>Send ↵</b></a>
+  <a class="compose" href="#" data-u="amirka" data-d="bu.edu"><span>To: amirka [at] bu [dot] edu</span><b>Send ↵</b></a>
   <div class="socials">
     <a href="https://www.linkedin.com/in/amira-sagitkhan-733439321/" target="_blank" rel="noopener">LinkedIn ↗</a><a href="#">Instagram ↗</a><a href="#">GitHub ↗</a><a href="#">Read.cv ↗</a>
   </div>
 </template>
 
-<script src="yurt.js?v=2"></script>
+<script src="yurt.js?v=7"></script>
 </body>
 </html>

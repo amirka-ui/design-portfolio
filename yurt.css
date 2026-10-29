@@ -546,3 +546,15 @@ a.ach:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--acce
 .ach small { font-size: 11.5px; color: var(--ink-2); line-height: 1.35; }
 @media (max-width: 560px) { .achievements { grid-template-columns: 1fr; } }
 .links .swatch { display: inline-block; width: 12px; height: 12px; margin-right: 8px; vertical-align: -1px; border: 1.5px solid var(--ink); border-radius: 3px; background: var(--sw); }
+
+/* inspiration: one big collage, like a pinned moodboard */
+@media (min-width: 701px) { .win[data-name="inspiration"] { width: min(980px, calc(100vw - 32px)); max-height: min(86vh, 900px); } }
+.collage { display: block; margin: 0 0 16px; border: 1.5px solid var(--ink); border-radius: 6px; overflow: hidden; background: #1b1d22; cursor: zoom-in; }
+.collage img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; transition: transform 0.4s ease; }
+.collage:hover img { transform: scale(1.015); }
+.collage { position: relative; }
+.collage .spot { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 0.6s ease;
+  background: radial-gradient(circle 170px at var(--x, 50%) var(--y, 50%), rgba(6, 6, 8, 0) 0, rgba(6, 6, 8, 0) 55%, rgba(6, 6, 8, 0.72) 100%); }
+.collage:hover .spot { opacity: 1; }
+.collage:hover img { transform: none; }
+@media (hover: none) { .collage .spot { display: none; } }

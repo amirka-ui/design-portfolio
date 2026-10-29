@@ -435,6 +435,7 @@ function openWin(name) {
   const w = document.createElement('div');
   w.className = 'win';
   w.setAttribute('role', 'dialog');
+  w.dataset.name = name;
   w.setAttribute('aria-label', names[name]);
   w.innerHTML = `
     <div class="win-bar"><span class="star">✦</span><span class="win-title">${tpl.dataset.title}</span><span class="win-path">${tpl.dataset.path}</span>
@@ -480,6 +481,20 @@ function openWin(name) {
   $('[data-act="min"]', w).addEventListener('click', () => minimizeWin(name));
   $('[data-act="close"]', w).addEventListener('click', () => closeWin(name));
 
+  // contact window: build the email address here so bots can't read it from the page
+  const mail = $('.compose[data-u]', w);
+  if (mail) {
+    const addr = mail.dataset.u + '@' + mail.dataset.d;
+    mail.href = 'mailto:' + addr;
+    $('span', mail).textContent = 'To: ' + addr;
+  }
+  // inspiration: a spotlight follows the mouse over the collage
+  const collage = $('.collage', w);
+  if (collage) collage.addEventListener('pointermove', (e) => {
+    const r = collage.getBoundingClientRect();
+    collage.style.setProperty('--x', (e.clientX - r.left) + 'px');
+    collage.style.setProperty('--y', (e.clientY - r.top) + 'px');
+  });
   // about window: achievements reveal + offline (night) mode
   const achBtn = $('[data-act="ach"]', w);
   if (achBtn) achBtn.addEventListener('click', () => {
